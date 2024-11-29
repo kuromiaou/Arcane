@@ -115,8 +115,8 @@ public:
     }
     void loadTextureFront(string file) {
         texture_front.loadFromFile(file);
-    }
-   
+    }  
+
     void move(Vector2f distance) {
         sprite.move(distance);
     }
@@ -141,7 +141,6 @@ public:
         else return false;
     }
 };
-
 class Manager {
 private:
     vector<Enemy*> allEnnemies;
@@ -151,7 +150,7 @@ public:
             delete objet;
         allEnnemies.clear();
     }
-    Enemy* createEntity(int x, int y, Texture Text, Vector2f Behaviour) { 
+    Enemy* createEntity(int x, int y, Texture Text, Vector2f Behaviour) { // vriable referant a un chiffe(expl) se referant lui meme a un sprite/texture/bound d'un des ennemis creables
         Enemy* obj = new Enemy(x, y, Text, Behaviour);
         allEnnemies.push_back(obj);
         return obj;
@@ -201,7 +200,7 @@ int main() {
 
     Sprite sprite2;
     int frameIndex = 0;
-    Clock clock2;    
+    Clock clock2;
     Manager manager;
     Background bg;
     Player player("owo");
@@ -214,7 +213,7 @@ int main() {
     bool isGrounded = true;
 
     SoundBuffer come_playSB, jazzSB;
-    come_playSB.loadFromFile("Sounds/Music/wav/comeplay-straykids.wav");
+    come_playSB.loadFromFile("Sounds/Music/ogg/comeplay-straykids.ogg");
     jazzSB.loadFromFile("Sounds/Music/wav/gandalf.wav");
     Sound come_play(come_playSB);
     Sound jazz(jazzSB);
@@ -230,7 +229,8 @@ int main() {
     CircleShape circle;
     circle.setRadius(10);
     circle.setPosition(rect.getPosition().x + rect.getSize().x / 2 - 5, rect.getPosition().y - rect.getSize().y / 2 - 5);
-    bool onVolume = false;    
+    bool onVolume = false;
+    
     Vector2f direction = Vector2f(0, 0);
     float timeUpward = 0.f;
     // Boucle principale    
@@ -263,8 +263,7 @@ int main() {
                 window.display();
                 come_play.pause();
                 jazz.play();
-                while (true) {
-                    
+                while (true) {                    
                     RenderWindow videoWindow(VideoMode(600, 338), "Easter Egg");
                     while (videoWindow.isOpen()) {
                         Event event;
@@ -294,7 +293,8 @@ int main() {
         Event event, e;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
-                window.close(); 
+                window.close();
+        }
 
         if (player.getPos().y >= 220) {
             isGrounded = true;
@@ -382,7 +382,8 @@ int main() {
             player.setPos(player.getPos().x, ground);
         if (iddd.y < 0)
             player.setPos(player.getPos().x, 0);
-                
+
+        
         window.clear();
         
         enemy_left.loadFromFile(textr_ennemy_left);
@@ -405,7 +406,7 @@ int main() {
         else if (!Mouse::isButtonPressed(Mouse::Left)) { onVolume = false; }
 
         window.draw(rect);
-        window.draw(circle);
+        window.draw(circle);        
         window.display();
     }
     return 0;
